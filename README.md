@@ -5,7 +5,7 @@ This repository contains a collection of free scripts that are integral to our o
 
 ## Index
 - [Camera Scripts](https://github.com/DOUBLETAKEStudios/Unity3D/tree/main/CameraScripts)
-- [Game Manager Scripts](#game-manager-scripts)
+- [Game Manager Scripts](https://github.com/DOUBLETAKEStudios/Unity3D/tree/main/GameManagerScripts)
 
 ## Camera Scripts
 Content for Camera Scripts...
