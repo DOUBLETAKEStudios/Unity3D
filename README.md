@@ -4,7 +4,7 @@
 This repository contains a collection of free scripts that are integral to our ongoing projects. We continuously update this space to reflect our latest work. As of the latest update on 11/12/2023, you'll find a variety of tools and resources that we've found invaluable. Feel free to explore and utilize them in your projects!
 
 ## Index
-- [Camera Scripts](#camera-scripts)
+- [Camera Scripts](https://github.com/DOUBLETAKEStudios/Unity3D/tree/main/CameraScripts)
 - [Game Manager Scripts](#game-manager-scripts)
 
 ## Camera Scripts
