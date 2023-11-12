@@ -8,7 +8,7 @@ public class FPVCameraController : MonoBehaviour
     [SerializeField]
     float _mouseSensitivity = 200f;
 
-    Transform _playerBody;
+    public Transform _playerBody;
 
     [SerializeField]
     float _xRotation = 0f;
