@@ -12,6 +12,9 @@ public class FPVCameraController : MonoBehaviour
 
     [SerializeField]
     float _xRotation = 0f;
+
+    // Variable to track if the mouse has moved
+    private bool mouseHasMoved = false;
     #endregion Fields
 
     #region Methods
@@ -25,7 +28,23 @@ public class FPVCameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FPVControls();
+        // Check if the mouse has moved
+        mouseHasMoved = Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0;
+
+        if (_playerBody == null)
+        {
+            Debug.LogWarning("Player body not assigned in FPV Camera Controller");
+            return;
+        }
+    }
+
+    // LateUpdate is called after all Update functions have been called
+    void LateUpdate()
+    {
+        if (mouseHasMoved)
+        {
+            FPVControls();
+        }
     }
 
     private void FPVControls()
