@@ -6,15 +6,19 @@ public class FPVCameraController : MonoBehaviour
 {
     #region Fields
     [SerializeField]
-    float _mouseSensitivity = 200f;
+    private float _mouseSensitivity = 200f;
 
     public Transform _playerBody;
 
     [SerializeField]
-    float _xRotation = 0f;
+    private float _xRotation = 0f;
 
-    // Variable to track if the mouse has moved
-    private bool mouseHasMoved = false;
+    // Acceleration fields
+    private Vector2 currentMouseDelta = Vector2.zero;
+    private Vector2 currentMouseDeltaVelocity = Vector2.zero;
+    
+    [SerializeField]
+    private float mouseSmoothTime = 0.03f; // Time it takes to smooth the input
     #endregion Fields
 
     #region Methods
@@ -28,20 +32,23 @@ public class FPVCameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Check if the mouse has moved
-        mouseHasMoved = Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0;
-
         if (_playerBody == null)
         {
             Debug.LogWarning("Player body not assigned in FPV Camera Controller");
             return;
         }
+
+        // Get raw mouse input
+        Vector2 targetMouseDelta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+
+        // Smoothly interpolate towards the target
+        currentMouseDelta = Vector2.SmoothDamp(currentMouseDelta, targetMouseDelta, ref currentMouseDeltaVelocity, mouseSmoothTime);
     }
 
     // LateUpdate is called after all Update functions have been called
     void LateUpdate()
     {
-        if (mouseHasMoved)
+        if (currentMouseDelta != Vector2.zero)
         {
             FPVControls();
         }
@@ -49,8 +56,8 @@ public class FPVCameraController : MonoBehaviour
 
     private void FPVControls()
     {
-        float mouseX = Input.GetAxis("Mouse X") * _mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * _mouseSensitivity * Time.deltaTime;
+        float mouseX = currentMouseDelta.x * _mouseSensitivity * Time.deltaTime;
+        float mouseY = currentMouseDelta.y * _mouseSensitivity * Time.deltaTime;
 
         _xRotation -= mouseY;
         _xRotation = Mathf.Clamp(_xRotation, -90f, 90f); // Prevents over-rotation
@@ -60,3 +67,4 @@ public class FPVCameraController : MonoBehaviour
     }
     #endregion Methods
 }
+
